@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+from datetime import datetime
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -115,14 +116,38 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        if not args:
+
+        argsTokens = args.partition(" ")
+
+        if not argsTokens[0]:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        elif argsTokens[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
+        
+        tokenizedDict = {}
+        attributes = argsTokens[2:][0].split(" ")
+
+        for attr in attributes:
+            
+            tokenKV = attr.split('=')
+
+            if (len(tokenKV) == 2):
+
+                if (tokenKV[1].startswith('"')):
+
+                    resStr = tokenKV[1].replace('_', ' ').replace('"', '')
+                    tokenizedDict[tokenKV[0]] = resStr
+
+                elif ('.' in tokenKV[1]):
+                    tokenizedDict[tokenKV[0]] = float(tokenKV[1])
+                else:
+                    tokenizedDict[tokenKV[0]] = int(tokenKV[1])
+
+
         storage.save()
+        new_instance = HBNBCommand.classes[argsTokens[0]](**tokenizedDict)
         print(new_instance.id)
         storage.save()
 
