@@ -144,6 +144,12 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     tokenizedDict[tokenKV[0]] = int(tokenKV[1])
 
+        from datetime import datetime
+
+        if len(tokenizedDict) > 0:
+            tokenizedDict['created_at'] = datetime.now().isoformat()
+            tokenizedDict['updated_at'] = datetime.now().isoformat()
+
         new_instance = HBNBCommand.classes[argsTokens[0]](**tokenizedDict)
         storage.save()
         print(new_instance.id)
