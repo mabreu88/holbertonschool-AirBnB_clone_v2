@@ -151,9 +151,8 @@ class HBNBCommand(cmd.Cmd):
             tokenizedDict['updated_at'] = datetime.now().isoformat()
 
         new_instance = HBNBCommand.classes[argsTokens[0]](**tokenizedDict)
-        storage.new(new_instance)
-        storage.save()
         print(new_instance.id)
+        storage.new(new_instance)
         storage.save()
 
     def help_create(self):
@@ -235,7 +234,7 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage.all().items():
+            for k, v in storage.all(HBNBCommand.classes[args]).items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
