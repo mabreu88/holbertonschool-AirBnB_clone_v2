@@ -21,7 +21,7 @@ class DBStorage():
     __session = None
 
     def __init__(self):
-        
+
         from sqlalchemy import create_engine
 
         conn = f'mysql+mysqldb://{user}:{password}@{host}/{database}'
@@ -36,11 +36,11 @@ class DBStorage():
             data = self.__session.query().all()
         else:
             data = self.__session.query(cls).all()
-        
+
         obj_dict = {}
         for obj in data:
             obj_dict[f'{obj.__class__.__name__}.{obj.id}'] = obj
-        
+
         return obj_dict
 
     def new(self, obj):
