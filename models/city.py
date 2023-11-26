@@ -19,5 +19,8 @@ class City(BaseModel, Base):
         nullable=False
     )
 
-    state = relationship('State', back_populates="cities")
+    from os import getenv
+    typeStorage = getenv("HBNB_TYPE_STORAGE")
 
+    if (typeStorage == "db"):
+        places = relationship('Place', backref="cities", cascade="all, delete")
