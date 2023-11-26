@@ -17,9 +17,11 @@ class User(BaseModel, Base):
     password = Column(String(128), nullable=False)
     first_name = Column(String(128))
     last_name = Column(String(128))
-    
+
     if typeStorage == 'db':
         places = relationship('Place', backref="user", cascade="all, delete")
+        reviews = relationship("Review", backref="user",
+                               cascade="all, delete-orphan")
     else:
         email = ""
         password = ""
