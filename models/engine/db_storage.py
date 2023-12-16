@@ -33,7 +33,7 @@ class DBStorage():
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        if cls == None:
+        if cls is None:
             data = self.__session.query().all()
         else:
             data = self.__session.query(cls).all()
@@ -51,7 +51,7 @@ class DBStorage():
         self.__session.commit()
 
     def delete(self, obj=None):
-        if obj != None:
+        if obj is not None:
             self.__session.delete(obj)
 
     def reload(self):
