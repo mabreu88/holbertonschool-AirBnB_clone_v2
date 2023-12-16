@@ -15,6 +15,7 @@ host = getenv("HBNB_MYSQL_HOST")
 database = getenv("HBNB_MYSQL_DB")
 typeStorage = getenv("HBNB_TYPE_STORAGE")
 
+
 class DBStorage():
     "Declaration of DBStorage class"
     __engine = None
@@ -46,7 +47,7 @@ class DBStorage():
     def new(self, obj):
         self.__session.add(obj)
 
-    def save(self): 
+    def save(self):
         self.__session.commit()
 
     def delete(self, obj=None):
