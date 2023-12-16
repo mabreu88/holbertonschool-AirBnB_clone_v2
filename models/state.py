@@ -25,7 +25,7 @@ class State(BaseModel, Base):
     if typeStorage != 'db':
         @property
         def cities(self):
-            """ get list of City instances with state_id 
+            """ get list of City instances with state_id
                 equals to the current State.id """
             list_cities = []
             all_cities = models.storage.all(City)
