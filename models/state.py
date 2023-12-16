@@ -6,10 +6,11 @@ from sqlalchemy.orm import relationship
 import models
 from models.city import City
 
+
 class State(BaseModel, Base):
     """ State class """
     __tablename__ = "states"
-    
+
     name = Column(
         String(128),
         nullable=False
@@ -32,4 +33,3 @@ class State(BaseModel, Base):
                 if city_obj.state_id == self.id:
                     list_cities.append(city_obj)
             return list_cities
-    
